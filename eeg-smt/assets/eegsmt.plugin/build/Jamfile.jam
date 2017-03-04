@@ -1,0 +1,25 @@
+SubDir TOP ;
+SubInclude TOP : $(ROOT)/coffee ;
+SubInclude TOP : $(ROOT)/engine/build/coffee_engine_link ;
+
+LIBRARY_PATH = ../binaries/$(PLATFORM)-$(COMPILER)-$(CONFIG) ;
+TEMP_PATH = ../binaries/$(PLATFORM)-$(COMPILER)-$(CONFIG) ;
+C.OutputPostfix * : ;
+
+SubDir TOP ../source/ ;
+
+SOURCES =
+    plugin.h
+    plugin.cpp
+;
+
+AutoSourceGroup eegsmt : $(SOURCES) ;
+Workspace eegsmt : eegsmt ;
+
+LOCATE_TARGET = $(TEMP_PATH) ;
+
+C.LinkPrebuiltLibraries eegsmt : $(PREBUILT_LIBRARIES) ;
+
+C.OutputPath eegsmt : $(LIBRARY_PATH) ;
+C.OutputName eegsmt : eegsmt ;
+C.Library eegsmt : $(SOURCES) : shared ;
